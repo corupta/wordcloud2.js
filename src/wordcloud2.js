@@ -168,11 +168,12 @@ if (!window.clearImmediate) {
     return arr
   }
 
-  var timer;
   var WordCloud = function WordCloud (elements, options) {
     if (!isSupported) {
       return
     }
+
+    var timer;
 
     if (!Array.isArray(elements)) {
       elements = [elements]
@@ -1211,15 +1212,16 @@ if (!window.clearImmediate) {
 
     // All set, start the drawing
     start()
+    var stop = function stop () {
+      if (timer) {
+        window.clearImmediate(timer)
+      }
+    }
+    return stop;
   }
 
   WordCloud.isSupported = isSupported
   WordCloud.minFontSize = minFontSize
-  WordCloud.stop = function stop () {
-    if (timer) {
-      window.clearImmediate(timer)
-    }
-  }
 
   // Expose the library as an AMD module
   if (typeof define === 'function' && define.amd) { // eslint-disable-line no-undef
